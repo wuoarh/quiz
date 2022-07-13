@@ -1,0 +1,244 @@
+@import '../common.scss';
+
+.showable {
+    display: none;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+
+    &.visible {
+        display: flex;
+    }
+}
+
+.advice {
+    position: absolute;
+    display: flex;
+    width: 70vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    canvas {
+        height: auto;
+        width: 80vmin;
+        image-rendering: pixelated;
+    }
+}
+
+@media (orientation: landscape) {
+    .advice {
+        .canvas {
+            height: 80vmin;
+            width: auto;
+        }
+    }
+}
+
+@keyframes grow {
+    0% {
+        max-height: 0;
+        opacity: 0;
+    }
+    100% {
+        max-height: 25vmin;
+        opacity: 1;
+    }
+}
+
+.category {
+    position: absolute;
+    top: 0;
+    height: 10vh;
+    font-size: 3vmin;
+    font-weight: 600;
+    padding: 8px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+.card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    color: $border;
+    background-color: $card;
+    border-color: $border;
+    border-style: solid;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    border-width: 1vmin;
+    transition: all 1s ease-in-out;
+    user-select: none;
+    overflow: hidden;
+    padding: 0.5vmin;
+
+    .question-label {
+        font-size: 1.5vmin;
+        text-align: center;
+        max-height: 0;
+        opacity: 0;
+    }
+    
+    &.active {
+        box-shadow: 0 5px 10px #000;
+        // background: radial-gradient(circle, #55f 0%, $card 100%);
+    }
+
+    &.revealed {
+        .score-label {
+            font-size: 3vmin;
+        }
+
+        .question-label {
+            animation: grow 2s forwards;
+        }
+    }
+
+    &.done {
+        filter: brightness(0.5) grayscale(0.5);
+    }
+}
+
+@keyframes progress {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
+    display: none;
+    
+    &.visible {
+        display: flex;
+    }
+
+    .progress-bar {
+        position: absolute;
+        left: 0;
+        right: 30vw;
+        bottom: 0;
+        height: 3vmin;
+        background-color: $border;
+        animation: progress forwards linear;
+        transform-origin: bottom left;
+    }
+
+    .player-list {
+        position: absolute;
+        flex-direction: column;
+        overflow: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 70vw;
+        background: rgba(0, 0, 0, 0.75);
+        border-left: 1px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(2px);
+        box-shadow: 0 0 10px #000;
+        counter-reset: ranking;
+
+        .player-progress {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: $border;
+            height: 3vmin;
+            transform-origin: bottom right;
+            transition: transform 200ms ease-in-out;
+        }
+
+        .player-row {
+            animation: slideIn 200ms forwards ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+            font-size: 4min;
+            font-weight: 600;
+            color: #999;
+            
+            .player-row-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            & > * {
+                padding-right: 8px;
+
+                &:last-of-type {
+                    padding-right: 0;
+                }
+            }
+
+            &.connected {
+                color: #eee;
+            }
+
+            &.declined {
+                background-color: rgba(255, 0, 0, 0.5);
+            }
+
+            &.accepted {
+                background-color: rgba(0, 255, 0, 0.5);
+            }
+
+            &.ranked {
+                .player-name::before {
+                    counter-increment: ranking;
+                    content: counter(ranking) ". ";
+                }
+            }
+
+            .answer-label {
+                max-height: 0;
+                overflow: hidden;
+            }
+        }
+
+        .player-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &.reveal-answers {
+            .player-row {
+                .answer-label {
+                    animation: grow 2s forwards;
+                }
+            }
+        }
+    }
+}

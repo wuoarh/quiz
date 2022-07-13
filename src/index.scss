@@ -1,0 +1,146 @@
+@import './common.scss';
+
+.showable {
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
+    display: none;
+
+    &.visible {
+        display: flex;
+    }
+}
+
+.input-holder {
+    flex-direction: column;
+    padding: 8px;
+    max-width: 480px;
+    margin: 0 auto;
+    height: 70vh;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+input,
+button {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    padding: 8px;
+    margin: 8px;
+    color: #eee;
+    box-sizing: border-box;
+    
+    &::placeholder {
+        color: #eee;
+    }
+
+    &:disabled {
+        opacity: 0.75;
+    }
+}
+
+@keyframes progress {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.user-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+
+    .label {
+        font-size: 6vmin;
+        font-weight: 600;
+        position: absolute;
+        padding: 8px;
+        user-select: none;
+    }
+    
+    .player-name,
+    .player-points {
+        bottom: 0;
+    }
+
+    .player-points {
+        left: 8px;
+    }
+
+    .player-name {
+        right: 8px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        left: 26vmin;
+        text-align: right;
+    }
+
+    .question-category,
+    .question-score {
+        top: 1vmin;
+    }
+
+    .question-score {
+        right: 8px;
+    }
+    .question-category {
+        left: 8px;
+        right: 26vmin;
+    }
+
+    .question-form {
+        flex-direction: column;
+        max-width: 480px;
+        align-self: center;
+        width: 100%;
+    }
+
+    .reveal-container {
+        position: absolute;
+        width: 100%;
+        flex-direction: column;
+        padding-top: 7.5vh;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .label-container {
+        &.declined {
+            color: $red;
+        }
+
+        &.accepted {
+            color: $green;
+        }
+    }
+    
+    .question-label {
+        justify-content: center;
+        align-items: center;
+        font-size: 5vmin;
+        user-select: none;
+        top: 12.5vh;
+    }
+
+    .progress {
+        position: absolute;
+        top: 0;
+        height: 1vmin;
+        background-color: $border;
+        width: 100%;
+        transform-origin: top left;
+        animation: progress forwards linear;
+    }
+}

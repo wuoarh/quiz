@@ -1,0 +1,33 @@
+$border: #cc0;
+$card: #00c;
+$red: #c00;
+$green: #0c0;
+
+body {
+    margin: 0;
+    background-color: #222;
+    color: #eee;
+    font-family: "DejaVu Sans", Liberation, Lucida, Verdana, sans-serif;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    box-shadow: 0 0 25vmin #000 inset;
+}
+
+.background {
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    transition: opacity 1s ease-in-out;
+    box-shadow: 0 0 25vmin #000 inset;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+
+    &.visible {
+        opacity: 1;
+    }
+}
+

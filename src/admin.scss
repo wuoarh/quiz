@@ -1,0 +1,185 @@
+@import './common.scss';
+
+.panel {
+    padding: 8px;
+
+    .label {
+        padding: 4px;
+
+        &.title {
+            color: #aaa;
+        }
+
+        &.question {
+            color: #fff;
+        }
+
+        &.answer {
+            color: #c00;
+        }
+    }
+
+}
+
+button {
+    margin: 4px;
+    padding: 4px 2px;
+    min-width: 40px;
+    cursor: pointer;
+
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.game-field {
+    position: relative;
+    display: flex;
+    min-height: 50vh;
+
+    &.disabled {
+        pointer-events: none;
+        filter: brightness(0.5) grayscale(0.5);
+    }
+}
+
+.admin-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 8px;
+
+    display: flex;
+
+    .indicator {
+        margin-right: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+        
+        .circle {
+            background: $red;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            margin-bottom: 4px;
+        }
+    }
+}
+
+.category {
+    position: absolute;
+    top: 0;
+    height: 5vh;
+    font-size: 2vmin;
+    font-weight: 400;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+
+    span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+.card {
+    position: absolute;
+    display: flex;
+    color: $border;
+    background-color: $card;
+    border-color: $border;
+    border-style: solid;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    border-width: 1vmin;
+    transition: transform 1s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+    
+    &.active {
+        border-color: #f00;
+        color: #f00;
+    }
+
+    &.done {
+        filter: brightness(0.5) grayscale(0.5);
+    }
+}
+
+.card-inputs {
+    left: 50vw;
+    position: absolute;
+}
+
+.showable {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+
+    &.visible {
+        opacity: 1;
+    }
+}
+
+.player-list {
+    position: absolute;
+    overflow: auto;
+    height: 50vh;
+    width: 50vw;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.75);
+    
+    .player-row {
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        color: $red;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        
+        .player-row-row {
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+
+        &.connected {
+            color: #eee;
+        }
+
+        .player-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 30vw;
+        }
+
+        .answer-label {
+            &.declined {
+                color: $red;
+            }
+
+            &.accepted {
+                color: $green;
+            }
+        }
+    }
+}
